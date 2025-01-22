@@ -1,0 +1,35 @@
+:root {
+  color: var(--main-text);
+  background-color: var(--main-bg);
+
+  --main-text: #000000;
+  --main-bg: #fcfaf7;
+  --primary-color: #2f4ce0;
+  --secondary-color: #7beed6;
+  --accent: #5c83ea;
+
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: ArgentumSans-Black;
+  src: url('./assets//ArgentumSans-Black.otf');
+}
+@font-face {
+  font-family: ArgentumSans-Bold;
+  src: url('./assets//ArgentumSans-Bold.otf');
+}
+@font-face {
+  font-family: ArgentumSans-Regular;
+  src: url('./assets//ArgentumSans-Regular.otf');
+}
+@font-face {
+  font-family: ArgentumSans-Light;
+  src: url('./assets//ArgentumSans-Light.otf');
+}
+
+.text-alt-color {
+  color: var(--primary-color);
+}
