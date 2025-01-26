@@ -78,4 +78,8 @@ import AboutPage from "./AboutPage.vue";
   color: #ffffff;
   border: 1px solid var(--primary-color);
 }
+
+.main-page-button:hover a {
+  color: #ffffff;
+}
 </style>
