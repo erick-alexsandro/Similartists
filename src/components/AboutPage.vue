@@ -217,7 +217,7 @@ const handleVideoLoaded = () => {
   }
 
   .video-skeleton {
-    height: 56.25vw; /* 16:9 aspect ratio */
+    height: 56.25vw; 
   }
 }
 
