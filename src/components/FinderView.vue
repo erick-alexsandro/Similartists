@@ -6,6 +6,7 @@ const artistTitle = ref("");
 const artistImage = ref("");
 const artistDescription = ref("");
 const artists = ref([]);
+const isLoading = ref(false);
 
 const spotifyClientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const spotifyClientSecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
@@ -84,9 +85,10 @@ const isSearching = ref(false);
 const isInputHiding = ref(false);
 
 const search = async () => {
-  if (isSearching.value) return; 
+  if (isSearching.value) return;
 
   isSearching.value = true;
+  isLoading.value = true;
   isInputHiding.value = true;
 
   const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName.value}&api_key=${apiKey}&format=json`;
@@ -108,6 +110,7 @@ const search = async () => {
   } finally {
     isSearching.value = false;
     isInputHiding.value = false;
+    isLoading.value = false;
   }
 };
 
@@ -161,25 +164,18 @@ onMounted(async () => {
 
 <template>
   <div class="page">
-    <div 
-  v-if="artists.length === 0"
-  class="finder-input-container"
->
-  <div
-    class="input-finder"
-    :class="{ hiding: isInputHiding }"
-  >
-    <input
-      @keyup.enter="search"
-      v-model="artistName"
-      type="text"
-      placeholder="Search for an artist or album"
-      :disabled="isSearching"
-    />
-  </div>
-</div>
+    <div v-if="artists.length === 0" class="finder-input-container">
+      <div class="input-finder" :class="{ hiding: isInputHiding }">
+        <input
+          @keyup.enter="search"
+          v-model="artistName"
+          type="text"
+          placeholder="Search for an artist"
+          :disabled="isSearching"
+        />
+      </div>
+    </div>
     <div class="finder-page">
-      
       <div v-if="artists.length > 5" class="finder-result">
         <div class="searched-artist">
           <div class="finder-searched-container">
@@ -211,10 +207,84 @@ onMounted(async () => {
         </div>
       </div>
     </div>
+    <div v-if="isLoading" class="finder-result">
+      <div class="searched-artist">
+        <div class="finder-searched-container">
+          <div class="skeleton finder-artist-image"></div>
+          <div class="skeleton finder-artist-title"></div>
+          <div class="skeleton finder-artist-description"></div>
+        </div>
+      </div>
+      <div class="finder-result-artists">
+        <div v-for="n in 10" :key="n" class="artist-card">
+          <div class="artist-single-card">
+            <div class="skeleton artist-image"></div>
+            <div class="artist-info">
+              <div class="skeleton artist-title"></div>
+              <div class="skeleton artist-description"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.skeleton {
+  background-color: #f0f0f0;
+  animation: colorPulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.skeleton.finder-artist-image {
+  width: 400px;
+  height: 400px;
+  transition: all 0.3s ease-in-out;
+}
+
+.skeleton.finder-artist-title {
+  width: 80%;
+  height: 50px;
+  margin: 20px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.skeleton.finder-artist-description {
+  width: 100%;
+  height: 300px;
+  transition: all 0.3s ease-in-out;
+}
+
+.skeleton.artist-image {
+  width: 100px;
+  height: 100px;
+  transition: all 0.5s ease-in-out;
+}
+
+.skeleton.artist-title {
+  width: 150px;
+  height: 24px;
+  margin-bottom: 8px;
+  transition: all 0.5s ease-in-out;
+}
+
+.skeleton.artist-description {
+  width: 500%;
+  height: 100px;
+  transition: all 0.5s ease-in-out;
+}
+
+@keyframes colorPulse {
+  0% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #f0f0f0;
+  }
+}
 .finder-input-container {
   display: flex;
   justify-content: center;
@@ -235,7 +305,7 @@ onMounted(async () => {
   height: 400px;
   object-fit: cover;
   border-radius: 15px;
-  border: 1px solid #000;
+  border: 3px solid var(--main-text);
 }
 .finder-artist-title {
   font-family: ArgentumSans-Black, sans-serif;
@@ -247,7 +317,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   margin-top: 8rem;
-  height: auto; 
+  height: auto;
 }
 
 .finder-result-artists {
@@ -256,6 +326,7 @@ onMounted(async () => {
   width: 50%;
   margin-left: auto;
   padding-left: 2rem;
+  transition: all 0.5s ease-in-out;
 }
 
 .finder-result {
@@ -275,7 +346,7 @@ onMounted(async () => {
   min-height: 100px;
   max-width: 100px;
   max-height: 100px;
-  border: 1px solid #000;
+  border: 3px solid var(--main-text);
 }
 
 .artist-card {
@@ -301,7 +372,7 @@ onMounted(async () => {
 }
 
 .artist-info h3::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 2px;
@@ -327,13 +398,15 @@ onMounted(async () => {
 }
 
 .input-finder input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #000;
-  border-radius: 25px;
-  font-size: 13px;
+  width: 100vw; 
+  height: 100vh;
+  border: 1px solid var(--main-text);
+  font-size: 5rem;
   font-family: ArgentumSans-Light, sans-serif;
   text-align: center;
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
+  white-space: normal; 
 }
 
 .input-finder {
@@ -345,6 +418,9 @@ onMounted(async () => {
   transform-origin: center;
   opacity: 1;
   transform: translateY(0);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .input-finder.hiding {
@@ -353,7 +429,7 @@ onMounted(async () => {
 }
 
 .searched-artist {
-  border-right: 1px solid #000;
+  border-right: 3px solid var(--main-text);
   height: 100vh;
   position: fixed;
   width: 50%;
@@ -362,4 +438,50 @@ onMounted(async () => {
   padding-top: 8rem;
 }
 
+@media screen and (max-width: 1470px) {
+  .searched-artist {
+    width: 90%;
+    border-right: none;
+    border-bottom: 2px solid var(--main-text);
+    height: auto;
+    position: relative;
+    padding-top: 0;
+  }
+
+  .finder-searched-container {
+    position: relative;
+    top: 0;
+    padding: 20px;
+  }
+
+  .finder-result {
+    flex-direction: column;
+  }
+
+  .finder-result-artists {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .artist-single-card {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .finder-searched-container {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .artist-single-card {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .input-finder input {
+    font-size: 2rem;
+  }
+}
 </style>
