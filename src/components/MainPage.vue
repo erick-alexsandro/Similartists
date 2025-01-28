@@ -35,8 +35,7 @@ import AboutPage from "./AboutPage.vue";
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
-  min-height: 100vh;
+  min-height: 90vh;
   padding: 0 1rem;
 }
 .main-page-invite-title {

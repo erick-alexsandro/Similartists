@@ -2,17 +2,32 @@
 import { ref } from "vue";
 
 const isVideoLoading = ref(true);
+const descriptionPosition = ref({
+  left: '0px',
+  top: '0px'
+});
 
 const handleVideoLoaded = () => {
   isVideoLoading.value = false;
 };
+
+const updateDescriptionPosition = (event) => {
+  const offsetX = 15;
+  const offsetY = 15;
+  
+  descriptionPosition.value = {
+    left: `${event.clientX + offsetX}px`,
+    top: `${event.clientY + offsetY}px`
+  };
+};
+
 </script>
 
 <template>
-  <div class="page-whole-about">
-    <div class="about-landing-page" id="about">
+  <div class="page-whole-about" id="about">
+    <div class="about-landing-page">
       <div class="about-img-landing">
-        <div class="video-section">
+        <div class="video-section" @mousemove="updateDescriptionPosition">
           <div class="video-container">
             <div v-if="isVideoLoading" class="video-skeleton"></div>
             <video
@@ -27,6 +42,9 @@ const handleVideoLoaded = () => {
             </video>
             <div v-if="!isVideoLoading" class="noise-overlay"></div>
           </div>
+          <div class="video-description" :style="descriptionPosition">
+      <p>Respectively: Beabadoobee, Kendrick Lamar, Deftones, Julie.</p>
+    </div>
         </div>
         <div class="about-img-text">
           <h1>About</h1>
@@ -54,6 +72,7 @@ const handleVideoLoaded = () => {
         let me know.
       </p>
     </div>
+    
   </div>
 </template>
 
@@ -176,6 +195,24 @@ const handleVideoLoaded = () => {
 
 .about-img-text p {
   margin-top: -30px;
+}
+
+.video-description {
+  display: none;
+  position: fixed; 
+  background-color: var(--main-bg);
+  color: var(--main-text);
+  border: 3px solid var(--main-text); 
+  font-family: ArgentumSans-Light, sans-serif;
+  padding: 10px;
+  font-size: 14px;
+  z-index: 9999999999;
+  width: 400px;
+  pointer-events: none; 
+}
+
+.video-section:hover .video-description {
+  display: block;
 }
 
 @media screen and (max-width: 1680px) {

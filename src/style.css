@@ -4,6 +4,7 @@
 
   --main-text: #111111;
   --main-bg: #f8f8f8;
+  --gray: #cccccc;
   --primary-color: #2f4ce0;
   --secondary-color: #7beed6;
   --accent: #5c83ea;
@@ -11,6 +12,10 @@
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
 }
 
 @font-face {
