@@ -7,7 +7,7 @@
     </div>
     <div class="navbar-options">
         <a class="navbar-item" href="/search">Find</a>
-        <a class="navbar-item" href="#about">About</a>
+        <a class="navbar-item" href="/#about">About</a>
       </div>
   </div>
 </template>
