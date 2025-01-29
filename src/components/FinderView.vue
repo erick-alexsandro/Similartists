@@ -502,5 +502,10 @@ onMounted(async () => {
   .input-finder input {
     font-size: 2rem;
   }
+
+  .finder-artist-image {
+    width: 80vw;
+    height: 80vw;
+  }
 }
 </style>
