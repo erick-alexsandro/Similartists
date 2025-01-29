@@ -86,9 +86,9 @@ const isInputHiding = ref(false);
 
 const search = async () => {
   if (isSearching.value) return;
-
-  isSearching.value = true;
+  
   isLoading.value = true;
+  isSearching.value = true;
   isInputHiding.value = true;
 
   const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName.value}&api_key=${apiKey}&format=json`;
@@ -239,20 +239,20 @@ onMounted(async () => {
 .skeleton.finder-artist-image {
   width: 400px;
   height: 400px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .skeleton.finder-artist-title {
   width: 80%;
   height: 50px;
   margin: 20px 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .skeleton.finder-artist-description {
   width: 100%;
   height: 300px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .skeleton.artist-image {
@@ -285,6 +285,18 @@ onMounted(async () => {
     background-color: #f0f0f0;
   }
 }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .finder-input-container {
   display: flex;
   justify-content: center;
@@ -352,6 +364,8 @@ onMounted(async () => {
 .artist-card {
   display: flex;
   flex-direction: column;
+  animation: slideIn 0.5s ease-out backwards;
+  animation-delay: calc(var(--i, 0) * 0.1s);
 }
 
 .artist-single-card {
@@ -403,7 +417,8 @@ onMounted(async () => {
   border: 1px solid var(--main-text);
   font-size: 5rem;
   font-family: ArgentumSans-Light, sans-serif;
-  text-align: center;
+  text-align: left;
+  padding-left: 15rem;
   word-wrap: break-word; 
   overflow-wrap: break-word;
   white-space: normal; 
@@ -414,10 +429,8 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s ease;
   transform-origin: center;
   opacity: 1;
-  transform: translateY(0);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -425,7 +438,6 @@ onMounted(async () => {
 
 .input-finder.hiding {
   opacity: 0;
-  transform: translateY(-50px);
 }
 
 .searched-artist {
@@ -456,12 +468,14 @@ onMounted(async () => {
 
   .finder-result {
     flex-direction: column;
+    animation: fadeIn 0.8s ease-out;
   }
 
   .finder-result-artists {
     width: 100%;
     padding: 0;
     margin: 0;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .artist-single-card {
@@ -471,6 +485,11 @@ onMounted(async () => {
 
   .finder-searched-container {
     width: 100%;
+  }
+
+  .input-finder input {
+    text-align: center;
+    padding-left: 0;
   }
 }
 

@@ -9,7 +9,7 @@ import AboutPage from "./AboutPage.vue";
       <div class="main-page-invite-title">
         <div class="main-page-text">
           <h1 class="main-page-title">
-            Find similar artists with just one click...
+            Find similar artists to your favorites with just one click...
           </h1>
           <p class="main-page-subtitle">and a couple of typings</p>
         </div>
@@ -26,14 +26,12 @@ import AboutPage from "./AboutPage.vue";
 <style scoped>
 .main-page-text {
   max-width: 100%;
-  padding: 0 1rem;
   margin-bottom: 2rem;
 }
 
 .main-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   min-height: 90vh;
   padding: 0 1rem;
@@ -41,19 +39,17 @@ import AboutPage from "./AboutPage.vue";
 .main-page-invite-title {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
   justify-content: center;
-  align-items: center;
   top: 50%;
   left: 50%;
   gap: 0px;
-  padding: 0 7rem;
+  padding: 0 8rem;
 }
 .main-page-title {
-  font-family: ArgentumSans-Black, sans-serif;
+  font-family: ArgentumSans-Regular, sans-serif;
   font-size: 5rem;
   line-height: 0.9;
-  text-transform:capitalize;
 }
 .main-page-subtitle {
   font-family: ArgentumSans-Light, sans-serif;

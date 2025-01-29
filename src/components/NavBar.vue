@@ -18,7 +18,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 5rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -50,7 +50,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .navbar-options {
     display: none;
   }

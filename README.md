@@ -1,5 +1,42 @@
-# Vue 3 + Vite
+# Similartists 🎵
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A web application that helps you discover new artists similar to your favorites using the Last.fm API and Spotify API.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Features
+
+- Get similar artists recommendations
+- View artist details
+- Clean and intuitive user interface
+
+## Technologies
+
+- Vue.js
+- Vuex
+- Vue Router
+- Spotify and Last.fm API
+
+## Usage
+
+1. Click on the "Find" button
+2. Enter an artist name
+3. Check the results
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
+
+## Acknowledgments
+
+- [Last.fm API](https://www.last.fm/api) and [Spotify API](https://developer.spotify.com/documentation/web-api) for providing artist data
+
+## Contact
+
+Erick Alexsandro - [Email](mailto:erickalexsandro@gmail.com)
