@@ -501,11 +501,50 @@ onMounted(async () => {
 
   .input-finder input {
     font-size: 2rem;
+    padding-left: 0;
+    text-align: center;
   }
 
   .finder-artist-image {
     width: 80vw;
     height: 80vw;
+  }
+  .skeleton.artist-image {
+    width: 80vw;
+    height: 80vw;
+  }
+
+  .finder-result-artists {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .artist-card {
+    width: 100%;
+  }
+
+  .artist-single-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .artist-info {
+    text-align: center;
+  }
+
+  .finder-searched-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .finder-artist-title {
+    font-size: 1.5rem;
+  }
+
+  .finder-artist-description {
+    font-size: 0.9rem;
   }
 }
 </style>
