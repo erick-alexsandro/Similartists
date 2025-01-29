@@ -91,7 +91,7 @@ const search = async () => {
   isSearching.value = true;
   isInputHiding.value = true;
 
-  const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName.value}&api_key=${apiKey}&format=json`;
+  const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName.value}&api_key=${apiKey}&format=json`;
 
   try {
     const response = await fetch(apiUrl);
@@ -115,7 +115,7 @@ const search = async () => {
 };
 
 const getArtistDescription = async (artistName) => {
-  const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=${apiKey}&format=json`;
+  const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=${apiKey}&format=json`;
 
   try {
     const response = await fetch(apiUrl);
@@ -131,7 +131,7 @@ const getArtistDescription = async (artistName) => {
 };
 
 const searchSimilars = async () => {
-  const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName.value}&api_key=${apiKey}&format=json`;
+  const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${artistName.value}&api_key=${apiKey}&format=json`;
 
   try {
     const response = await fetch(apiUrl);
