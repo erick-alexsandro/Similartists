@@ -40,7 +40,7 @@ import ArrowBox from "./icons/ArrowBox.vue";
               <a href="https://ericalex.vercel.app/">Eric Alex's Portfolio</a>
             </div>
             <div class="menu-item">
-              <p>See the repositoy</p>
+              <p>See the repository</p>
               <a href="https://github.com/erick-alexsandro/Similartists"
                 >Github Repository</a
               >
