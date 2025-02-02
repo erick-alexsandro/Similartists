@@ -80,7 +80,7 @@ const getArtistImage = async (artistName) => {
       return current.popularity > best.popularity ? current : best;
     }
 
-    return best;
+    return best;  
   }, artists[0]);
 
   return bestMatch?.images[0]?.url;
