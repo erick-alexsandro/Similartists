@@ -6,7 +6,7 @@
       <router-link to="/">Similartists</router-link>
     </div>
     <div class="navbar-options">
-        <router-link class="navbar-item" to="/search">Find</router-link>
+        <a class="navbar-item" href="/search">Find</a>
         <a class="navbar-item" href="/#about">About</a>
       </div>
   </div>

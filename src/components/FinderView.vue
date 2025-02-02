@@ -75,7 +75,12 @@ const getArtistImage = async (artistName) => {
 
     if (currentNameMatch && !bestNameMatch) return current;
     if (bestNameMatch && !currentNameMatch) return best;
-    return current.popularity > best.popularity ? current : best;
+
+    if (!currentNameMatch && !bestNameMatch) {
+      return current.popularity > best.popularity ? current : best;
+    }
+
+    return best;
   }, artists[0]);
 
   return bestMatch?.images[0]?.url;
@@ -86,7 +91,7 @@ const isInputHiding = ref(false);
 
 const search = async () => {
   if (isSearching.value) return;
-  
+
   isLoading.value = true;
   isSearching.value = true;
   isInputHiding.value = true;
@@ -136,24 +141,48 @@ const searchSimilars = async () => {
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
     artists.value = [];
-    for (let i = 0; i < 10; i++) {
-      const artist = data.similarartists.artist[i];
-      const imageUrl = await getArtistImage(artist.name);
-      const artistDescription = await getArtistDescription(artist.name);
-      const artistUrl = await getArtistUrl(artist.name);
-      artists.value.push({
-        name: artist.name,
-        image: imageUrl,
-        description: artistDescription,
-        link: artistUrl,
-      });
+
+    const processArtists = async (artistList, limit = 10) => {
+      const processedArtists = await Promise.all(
+        artistList.slice(0, limit).map(async (artist) => {
+          const [imageUrl, artistDescription, artistUrl] = await Promise.all([
+            getArtistImage(artist.name),
+            getArtistDescription(artist.name),
+            getArtistUrl(artist.name),
+          ]);
+
+          return {
+            name: artist.name,
+            image: imageUrl,
+            description: artistDescription,
+            link: artistUrl,
+          };
+        })
+      );
+      artists.value = processedArtists;
+    };
+
+    if (data.similarartists.artist.length === 0) {
+      // const artistIdUrl = `https://api.deezer.com/search/artist?q=${artistName.value}`;
+      // const artistResponse = await fetch(artistIdUrl);
+      // const artistData = await artistResponse.json();
+      // const artistId = artistData.data[0].id;
+      // const similarUrl = `https://api.deezer.com/artist/${artistId}/related`;
+      // const similarResponse = await fetch(similarUrl);
+      // const similarData = await similarResponse.json();
+      // await processArtists(similarData.data);
+      const message = `No similar artists found for ${artistName.value}`;
+      alert(message);
+    } else {
+      await processArtists(data.similarartists.artist);
     }
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error fetching similar artists:", error);
+    artists.value = []; // Reset on error
   }
 };
 
@@ -412,16 +441,16 @@ onMounted(async () => {
 }
 
 .input-finder input {
-  width: 100vw; 
+  width: 100vw;
   height: 100vh;
   border: 1px solid var(--main-text);
   font-size: 5rem;
   font-family: ArgentumSans-Light, sans-serif;
   text-align: left;
   padding-left: 15rem;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   overflow-wrap: break-word;
-  white-space: normal; 
+  white-space: normal;
 }
 
 .input-finder {
