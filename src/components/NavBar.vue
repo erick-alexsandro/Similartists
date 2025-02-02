@@ -6,9 +6,9 @@
       <router-link to="/">Similartists</router-link>
     </div>
     <div class="navbar-options">
-        <a class="navbar-item" href="https://similartists.vercel.app/search">Find</a>
-        <a class="navbar-item" href="/#about">About</a>
-      </div>
+      <router-link class="navbar-item" to="/search">Find</router-link>
+      <a class="navbar-item" href="/#about">About</a>
+    </div>
   </div>
 </template>
 
@@ -34,26 +34,25 @@
   color: var(--main-text);
 }
 .navbar-options {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  font-size: 1rem;
 }
 .navbar-item {
-    font-family: ArgentumSans-Regular, sans-serif;
-    text-decoration: none;
-    transition: 0.3s;
-    color: var(--main-text);
+  font-family: ArgentumSans-Regular, sans-serif;
+  text-decoration: none;
+  transition: 0.3s;
+  color: var(--main-text);
 }
 .navbar-item:hover {
-    opacity: 60%;
-    cursor: pointer;
+  opacity: 60%;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {
   .navbar-options {
     display: none;
   }
-
 }
 </style>
